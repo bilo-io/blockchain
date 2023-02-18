@@ -119,7 +119,7 @@ export const Explore: React.FC = () => {
 
                       })
                       // eslint-disable-next-line no-debugger
-                      debugger
+                      // debugger
                     }}>
                     {b.hash}
                   </div>
