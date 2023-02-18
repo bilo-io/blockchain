@@ -22,6 +22,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "yarn test:unit",
+    "test:ci:coverage": "yarn test:ci --coverage",
+    "test:ci:e2e": "npx cypress open",
+    "test:e2e": "npx cypress open",
+    "test:unit": "CI=true react-scripts test",
+    "test:unit:coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
