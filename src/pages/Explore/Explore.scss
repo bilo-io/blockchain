@@ -1,0 +1,12 @@
+.sidenav {
+
+    &-item {
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0.5rem;
+
+        &:hover {
+            box-shadow: 1px 10px 10px #000000AA;
+        }
+    }
+}
