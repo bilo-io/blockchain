@@ -1,0 +1,8 @@
+@import '../../../styles/colors.scss';
+
+button {
+    border: none;
+    &:focus {
+        border: $col-primary;
+    }
+}

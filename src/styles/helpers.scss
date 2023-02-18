@@ -1,0 +1,29 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.padded-page {
+    padding: {
+        top: 2rem;
+        bottom:2rem;
+    }
+    justify-content: center;
+    text-align: left;
+    max-width: 120rem;
+    overflow-y: auto;
+}
+
+.link {
+    text-decoration: underline;
+    color: blue;
+}

@@ -1,0 +1,25 @@
+@import '../../styles/colors.scss';
+
+.search-input {
+    text-indent: 4rem;
+    font-size: 1.1rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 0.2rem;
+    border: 1px solid #666;
+    background-color: #EFEFF9;
+    min-width: 50rem;
+
+    &:focus {
+        border-color: $col-primary;
+    }
+}
+
+.search-button {
+    padding: {
+        left: 3rem;
+        right: 3rem;
+        top: 1rem;
+        bottom: 1rem;
+    }
+}
