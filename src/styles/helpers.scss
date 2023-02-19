@@ -12,6 +12,21 @@
     flex-grow: 1;
 }
 
+.w-full {
+    width: 100%;
+}
+
+.w-fit-content {
+    width: fit-content;
+}
+
+.mx-auto {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
 .padded-page {
     padding: {
         top: 2rem;

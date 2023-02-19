@@ -4,15 +4,16 @@ import { GETRequest } from 'utils/api'
 
 const API_BASE_URL = 'https://api.blockchair.com'
 
+export type IBlockChainType = 'bitcoin' | 'ethereum'
 // https://api.blockchair.com/bitcoin/raw/block/0
-export const getBlock = async (height: string | number): Promise<any> => {
-  const url = `${API_BASE_URL}/bitcoin/raw/block/${height}`
+export const getBlock = async (height: string | undefined): Promise<any> => {
+  const url = `${API_BASE_URL}/bitcoin/raw/block/${height as string}`
   return await GETRequest(url)
 }
 
-// https://api.blockchair.com//bitcoin/blocks?s=id(desc)&limit=10&offset=0
-export const getBlocks = async (height: string | number): Promise<any> => {
-  const url = `${API_BASE_URL}/bitcoin/blocks?s=id(desc)&limit=10&offset=0`
+// https://api.blockchair.com/bitcoin/blocks?s=id(desc)&limit=10&offset=0
+export const getBlocks = async (blockChain: IBlockChainType): Promise<any> => {
+  const url = `${API_BASE_URL}/${blockChain}/blocks?s=id(desc)&limit=10&offset=0`
   return await GETRequest(url)
 }
 

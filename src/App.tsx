@@ -1,11 +1,9 @@
 import { useAppTheme } from 'hooks/useAppTheme'
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-// import routes, { type IRoute } from './pages/routes'
 import './App.scss'
-import Explore from './pages/Explore/Explore'
-import Block from 'pages/Block/Block'
 import { Home } from './pages/Home/Home'
+import BlockDetails from 'pages/BlockDetails/BlockDetails'
 
 import { Context } from 'store/context'
 
@@ -22,14 +20,8 @@ const App = (): React.ReactElement => {
         }}>
           <Router>
             <Routes>
-              {/* {routes.map((route: IRoute) => (
-              <Route key={route.path} path={route.path} element={route.component} />
-            ))
-          } */}
               <Route path={'/'} element={<Home />} />
-              <Route path={'/explore'} element={<Explore />} />
-              <Route path={'/blocks/:blockHash'} element={<Block />} />
-
+              <Route path={'/:blockChain/blocks/:blockHash'} element={<BlockDetails />} />
             </Routes>
           </Router>
         </div>
