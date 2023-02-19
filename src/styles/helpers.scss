@@ -36,6 +36,8 @@
     text-align: left;
     max-width: 120rem;
     overflow-y: auto;
+
+    @extend .mx-auto;
 }
 
 .link {

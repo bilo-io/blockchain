@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Table from 'components/Core/Table/Table'
 import { useNavigate } from 'react-router-dom'
 import translations from 'utils/translations'
@@ -6,13 +6,17 @@ import { products, type IProduct } from './data'
 import './Home.scss'
 import SearchInput from 'components/SearchInput/SearchInput'
 import { getLatestBlock } from 'services/blockchain'
-import { getBlocks, type IBlockchairBlock } from 'services/blockchair'
+import { getBlocks, type IBlockChainType, type IBlockchairBlock } from 'services/blockchair'
 import { Loader } from 'components/Loader/Loader'
+import { blockchainBaseUrl } from '../../constants'
 
-const blockchainBaseUrl = 'https://www.blockchain.com'
 export const Home: React.FC = () => {
-  const assetCode = 'btc'
+  const [assetCode, setAssetCode] = useState<any>({
+    blockchain: 'btc',
+    blockchair: 'bitcoin'
+  })
   // #region HOOKS
+  const initFetch = useRef(false)
   const navigate = useNavigate()
   // #endregion
 
@@ -39,7 +43,42 @@ export const Home: React.FC = () => {
     }]
   // #endregion
 
-  // #region HANDLERS
+  // #region FUNCTIONS
+  const fetchBlocks = (asset: IBlockChainType): void => {
+    setLoading(true)
+    getBlocks(asset)
+      .then((res: {
+        data: IBlockchairBlock[]
+      }) => {
+        setData(res.data.map((b: IBlockchairBlock) => ({
+          ...b,
+          hash: (
+            <div className='flex-row'>
+              <a target="_blank" href={`${blockchainBaseUrl}/${assetCode?.blockchain as string}/block/${b.hash}`} rel="noreferrer">
+                {'blockchain.com'}&#129133;
+              </a>
+              <div style={{ width: '1rem' }} />
+              <div className="link"
+                onClick={(): void => {
+                  navigate(`/${assetCode?.blockchair as string}/blocks/${b.hash}`, {
+                    state: {
+                      latestBlockHeight,
+                      block: b
+                    }
+
+                  })
+                  // eslint-disable-next-line no-debugger
+                  // debugger
+                }}>
+                {b.hash}
+              </div>
+            </div>
+          )
+        })))
+      })
+      .catch((err: any) => { console.log({ err }) })
+      .finally(() => { setLoading(false) })
+  }
   const handleQuery = (value: string): void => {
     setSearchQuery(value)
   }
@@ -51,48 +90,26 @@ export const Home: React.FC = () => {
 
   // #region LIFECYCLE
   useEffect(() => {
+    // Start: prevent double API fetch
+    if (initFetch.current) { return }
+    initFetch.current = true
+    // end: prevent double API fetch
+
     getLatestBlock()
       .then((response: any) => {
         const blockHeight = response?.height
         console.log('getLatestBlockHeight', blockHeight)
         setLatestBlockHeight(blockHeight ?? 777322)
-
-        getBlocks('bitcoin')
-          .then((res: {
-            data: IBlockchairBlock[]
-          }) => {
-            setData(res.data.map((b: IBlockchairBlock) => ({
-              ...b,
-              hash: (
-                <div className='flex-row'>
-                  <a target="_blank" href={`${blockchainBaseUrl}/${assetCode}/block/${b.hash}`} rel="noreferrer">
-                    {'blockchain.com'}&#129133;
-                  </a>
-                  <div style={{ width: '1rem' }} />
-                  <div className="link"
-                    onClick={(): void => {
-                      navigate(`/bitcoin/blocks/${b.hash}`, {
-                        state: {
-                          latestBlockHeight,
-                          block: b
-                        }
-
-                      })
-                      // eslint-disable-next-line no-debugger
-                      // debugger
-                    }}>
-                    {b.hash}
-                  </div>
-                </div>
-              )
-            })))
-          })
-          .catch((err: any) => { console.log({ err }) })
-          .finally(() => { setLoading(false) })
+        fetchBlocks(assetCode.blockchair)
       }).catch((error: any) => {
         console.log({ error })
       })
   }, [])
+
+  useEffect(() => {
+    console.log('fetching ' + (assetCode?.blockchair as string) + ' blocks')
+    // fetchBlocks()
+  }, [assetCode])
   // #endregion
 
   return (
@@ -101,29 +118,33 @@ export const Home: React.FC = () => {
         <h2>{viewMessages.sidenav.heading}</h2>
         {products.map((p: IProduct) => (
           <ProductItem key={p.code} product={p} onClick={() => {
-            navigate(`/explore/${p.code}`)
+            fetchBlocks(p.assetCode?.blockchair as IBlockChainType)
+            setAssetCode(p.assetCode)
+            // navigate(`/${p.assetCode?.blockchair as string}/blocks`)
           }} />
         ))}
       </div>
       <div className="content">
-        {loading
-          ? <Loader type="ripple" />
-          : (
-            <>
-              <SearchInput
-                value={searchQuery}
-                onChange={handleQuery}
-                onClick={handleSearch}
-                placeholder={viewMessages.content.placeholder}
-              />
-              <h2>{viewMessages.content.heading}</h2>
-              <div>Latest block: {latestBlockHeight}</div>
+        <>
+          <SearchInput
+            value={searchQuery}
+            onChange={handleQuery}
+            onClick={handleSearch}
+            placeholder={viewMessages.content.placeholder}
+          />
+          <h2>{viewMessages.content.heading}</h2>
+          {loading
+            ? <div className="flex-grow w-full">
+              <Loader type="ripple" />
+            </div>
+            : (
               <Table
                 columns={columns}
                 data={data}
               />
-            </>
-            )}
+              )
+          }
+        </>
       </div>
     </div>
   )
@@ -131,7 +152,7 @@ export const Home: React.FC = () => {
 
 const ProductItem = ({ product, onClick }: { product: IProduct, onClick: () => void }): React.ReactElement => (
   <div key={product.code} className="sidenav-item" onClick={() => { onClick() }}>
-    {product?.icon as boolean && <img src={product.icon} alt={product.code} />}
+    {product?.icon as boolean && <img src={product.icon} alt={product.code} width={32} height={32} />}
     <span>{product.code}</span>
   </div>
 )

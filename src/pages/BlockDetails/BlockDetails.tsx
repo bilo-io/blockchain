@@ -69,7 +69,6 @@ export const BlockDetails: React.FC = () => {
 
   // #region LIFECYCLE
   useEffect(() => {
-    // if (!loading && !latestBlockHeight.loading && latestBlockHeight.data > 0) {
     // Start: prevent double API fetch
     if (initFetch.current) { return }
     initFetch.current = true
@@ -87,7 +86,6 @@ export const BlockDetails: React.FC = () => {
 
   return (
     <div className="flex-grow padded-page">
-      <div style={{ color: '#f00', fontWeight: 'bold' }}>latest: {latestBlockHeight?.data}</div>
       <div>
         <h2>BTC / Block / {blockData?.data?.hash}</h2>
         {blockLoading

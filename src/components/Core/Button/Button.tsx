@@ -46,7 +46,11 @@ export const Button: React.FC<ButtonProps> = ({
   style
 }) => {
   const buttonStyle = {
-    backgroundColor: color
+    backgroundColor: color,
+    padding: '1rem',
+    paddingLeft: '3rem',
+    paddingRight: '3rem',
+    fontSize: '1.2rem'
   }
   return (
         <button
