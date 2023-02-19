@@ -22,16 +22,17 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   const commonMessages = translations.eng.common
 
   const handleChange = (e: any): void => {
+    console.log('SearchInput.handleChange', e)
     onChange(e.target.value)
   }
 
   return (
     <div>
       <Input
-        className="search-input"
-        placeholder={placeholder}
         value={value}
         onChange={handleChange}
+        placeholder={placeholder}
+        className="search-input"
       />
       <Button size="large" backgroundColor={theme.colors.PRIMARY} onClick={() => { onClick() }}>
         {commonMessages.search}

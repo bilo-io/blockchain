@@ -4,7 +4,7 @@ interface InputProps {
   ref?: any
   type?: HTMLInputTypeAttribute | undefined
   value?: string | number
-  onChange?: (value: string) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   style?: any
   className?: string
@@ -27,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
       className={className}
       placeholder={placeholder}
       value={value}
-      onChange={(e) => onChange?.(e.target.value)}
+      onChange={(e) => onChange?.(e)}
     />
   )
 }

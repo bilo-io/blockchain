@@ -128,7 +128,7 @@ export const Home: React.FC = () => {
         <>
           <SearchInput
             value={searchQuery}
-            onChange={handleQuery}
+            onChange={(value: string) => { handleQuery(value) }}
             onClick={handleSearch}
             placeholder={viewMessages.content.placeholder}
           />
