@@ -54,20 +54,20 @@ jobs:
     #   uses: bradennapier/eslint-plus-action@v3
 
 
-  # visual-tests:
-  #   runs-on: ubuntu-latest
-  #   needs: [build]
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #     - run: yarn install
-  #     - name: Chromatic publish
-  #       uses: chromaui/action@v1
-  #       with:
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+  visual-tests:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - name: Chromatic publish
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

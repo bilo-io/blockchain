@@ -34,7 +34,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         placeholder={placeholder}
         className="search-input"
       />
-      <Button size="large" color={theme.colors.PRIMARY} onClick={() => { onClick() }}>
+      <Button size="large" color={theme.colors.SECONDARY} onClick={() => { onClick() }}>
         {commonMessages.search}
       </Button>
     </div>
