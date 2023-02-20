@@ -28,6 +28,7 @@
     "test:e2e": "npx cypress open",
     "test:unit": "CI=true react-scripts test",
     "test:unit:coverage": "react-scripts test --coverage",
+    "chromatic": "npx chromatic --project-token=3f562e64b774",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -73,6 +74,7 @@
     "@storybook/testing-library": "^0.0.13",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.17.0",
     "eslint": "^8.0.1",
     "eslint-config-standard-with-typescript": "^34.0.0",
     "eslint-plugin-import": "^2.25.2",

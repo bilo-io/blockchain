@@ -1,22 +1,49 @@
+import { Button, Input } from 'components/Core'
+import { useAppTheme } from 'hooks/useAppTheme'
 import React from 'react'
+import translations from 'utils/translations'
+import './SearchInput.scss'
 
 export interface SearchInputProps {
   value: string
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  onChange: Function
+  onChange: (value: string) => void
+  onClick: () => void
+  placeholder?: string
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({
   value,
-  onChange
+  onChange,
+  onClick,
+  placeholder
 }) => {
+  const theme = useAppTheme()
+
+  const commonMessages = translations.eng.common
+
   const handleChange = (e: any): void => {
+    console.log('SearchInput.handleChange', e)
     onChange(e.target.value)
   }
+
   return (
-    <input value={value} onChange={handleChange} />
+    <div className="flex-row justify-between">
+      <Input
+        value={value}
+        onChange={handleChange}
+        placeholder={placeholder}
+        className="search-input"
+      />
+      <Button size="large" color={theme.colors.SECONDARY} onClick={() => { onClick() }}>
+        {commonMessages.search}
+      </Button>
+    </div>
 
   )
+}
+
+SearchInput.defaultProps = {
+  placeholder: 'Search'
 }
 
 export default SearchInput
