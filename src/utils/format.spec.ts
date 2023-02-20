@@ -32,7 +32,7 @@ describe('format', () => {
 
     it('works for a reach BTC block hash', () => {
       const newLocal = '00000000000000000005ab84ab5e1c6036f1635db6c09385da794db4ff0cda02'
-      expect(collapseHashZeros(newLocal)).toBe('00000000000000000005ab84ab5e1c6036f1635db6c09385da794db4ff0cda02')
+      expect(collapseHashZeros(newLocal)).toBe('0..05ab84ab5e1c6036f1635db6c09385da794db4ff0cda02')
     })
   })
 })
