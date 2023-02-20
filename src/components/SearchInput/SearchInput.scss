@@ -10,8 +10,13 @@
     background-color: #EFEFF9;
     min-width: 50rem;
 
+    &:hover {
+        // background-color: #f0f;
+        border-color: #00adee;
+    }
+
     &:focus {
-        border-color: $col-primary;
+        border-color: #00adee;
     }
 }
 

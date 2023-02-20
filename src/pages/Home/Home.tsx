@@ -9,6 +9,8 @@ import { getLatestBlock } from 'services/blockchain'
 import { getBlocks, type IBlockChainType, type IBlockchairBlock } from 'services/blockchair'
 import { Loader } from 'components/Loader/Loader'
 import { blockchainBaseUrl } from '../../constants'
+import { AssetIcon } from 'components/Core/AssetIcon/AssetIcon'
+import { collapseHashZeros } from 'utils/format'
 
 export const Home: React.FC = () => {
   const [assetCode, setAssetCode] = useState<any>({
@@ -62,6 +64,7 @@ export const Home: React.FC = () => {
                 onClick={(): void => {
                   navigate(`/${assetCode?.blockchair as string}/blocks/${b.hash}`, {
                     state: {
+                      assetCode: assetCode.blockchain,
                       latestBlockHeight,
                       block: b
                     }
@@ -70,7 +73,7 @@ export const Home: React.FC = () => {
                   // eslint-disable-next-line no-debugger
                   // debugger
                 }}>
-                {b.hash}
+                {collapseHashZeros(b.hash)}
               </div>
             </div>
           )
@@ -152,7 +155,7 @@ export const Home: React.FC = () => {
 
 const ProductItem = ({ product, onClick }: { product: IProduct, onClick: () => void }): React.ReactElement => (
   <div key={product.code} className="sidenav-item" onClick={() => { onClick() }}>
-    {product?.icon as boolean && <img src={product.icon} alt={product.code} width={32} height={32} />}
+    <AssetIcon code={product.code} />
     <span>{product.code}</span>
   </div>
 )

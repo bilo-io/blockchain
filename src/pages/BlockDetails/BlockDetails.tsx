@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { AssetIcon } from 'components/Core/AssetIcon/AssetIcon'
 import { Loader } from 'components/Loader/Loader'
 import { useLatestBlockHeight } from 'hooks/useLatestBlockHeight'
 import React, { useEffect, useRef, useState } from 'react'
@@ -14,7 +15,7 @@ export const BlockDetails: React.FC = () => {
   // initiate dataFetch
   const initFetch = useRef(false)
   const location = useLocation()
-  const { blockHash, blockChain } = useParams()
+  const { assetCode, blockHash, blockChain } = useParams()
   const latestBlockHeight = useLatestBlockHeight()
   // #endregion
 
@@ -82,12 +83,18 @@ export const BlockDetails: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     fetchTransactions()
   }, [blockData?.data?.tx])
+
+  console.log({ assetCode })
   // #endregion
 
   return (
     <div className="flex-grow padded-page">
       <div>
-        <h2>BTC / Block / {blockData?.data?.hash}</h2>
+        <div className="flex-row">
+          <AssetIcon code={'BTC'} />
+          <h2>BTC / Block / {blockData?.data?.hash}</h2>
+        </div>
+
         {blockLoading
           ? (<Loader type={'ripple'} />)
           : (

@@ -27,14 +27,14 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   }
 
   return (
-    <div>
+    <div className="flex-row justify-between">
       <Input
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
         className="search-input"
       />
-      <Button size="large" backgroundColor={theme.colors.PRIMARY} onClick={() => { onClick() }}>
+      <Button size="large" color={theme.colors.PRIMARY} onClick={() => { onClick() }}>
         {commonMessages.search}
       </Button>
     </div>

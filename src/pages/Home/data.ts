@@ -1,6 +1,6 @@
 import iconBtc from '../../assets/svg/crypto/btc.svg'
 import iconBch from '../../assets/svg/crypto/bch.svg'
-import iconEth from '../../assets/svg/crypto/eth-purple.svg'
+import iconEth from '../../assets/svg/crypto/eth.svg'
 
 export interface IProduct {
   name: string
@@ -37,7 +37,7 @@ export const products = [
   {
     name: 'Bitcoin Cash',
     code: 'BCH',
-    color: '#475885',
+    color: '#0AC18E',
     assetCode: {
       blockchain: 'bch',
       blockchair: 'bitcoin-cash'

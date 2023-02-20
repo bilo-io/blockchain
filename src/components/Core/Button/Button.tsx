@@ -50,7 +50,9 @@ export const Button: React.FC<ButtonProps> = ({
     padding: '1rem',
     paddingLeft: '3rem',
     paddingRight: '3rem',
-    fontSize: '1.2rem'
+    fontSize: '1.2rem',
+    borderRadius: '0.25rem',
+    color: '#fff'
   }
   return (
         <button

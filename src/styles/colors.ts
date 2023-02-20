@@ -24,3 +24,9 @@ export const lightTheme = {
   PANEL: '#CCD',
   BACKGROUND: '#FFF'
 }
+
+export const assets = {
+  BTC: '#F7931A',
+  ETH: '#454A75',
+  BCH: '#0AC18E'
+}
