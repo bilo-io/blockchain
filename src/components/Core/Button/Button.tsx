@@ -1,71 +1,30 @@
-import React from 'react'
+import React, { type ReactNode } from 'react'
+import classNames from 'classnames'
 import './Button.style.scss'
 
-interface ButtonProps {
-  ref?: any
-  type?: 'submit' | 'reset' | 'button' | undefined
-  color?: string
-  /**
-     * Is this the principal call to action on the page?
-     */
-  primary?: boolean
-  /**
-       * What background color to use
-       */
-  backgroundColor?: string
-  /**
-       * How large should the button be?
-       */
-  size?: 'small' | 'medium' | 'large'
-  /**
-       * Button contents
-       */
-  children?: any
-  /**
-       * Optional click handler
-       */
-  onClick?: () => void
-  /**
-       * Optional styling
-       */
-  style?: any
-  /**
-       * Optional className
-       */
-  className?: string
+type Color = 'primary' | 'secondary' | 'success' | 'warning' | 'error'
+type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
+interface ButtonProps {
+  children: ReactNode
+  color?: Color
+  size?: Size
+  onClick?: () => void
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  ref,
-  type,
-  color,
-  onClick,
+const Button: React.FC<ButtonProps> = ({
   children,
-  className,
-  style
+  color = 'primary',
+  size = 'md',
+  onClick
 }) => {
-  const buttonStyle = {
-    backgroundColor: color,
-    padding: '1rem',
-    paddingLeft: '3rem',
-    paddingRight: '3rem',
-    fontSize: '1.2rem',
-    borderRadius: '0.25rem',
-    color: '#fff'
-  }
+  const buttonClasses = classNames('btn', `btn-${color}`, `btn-${size}`)
+
   return (
-        <button
-            ref={ref}
-            type={type}
-            onClick={(e) => onClick?.()}
-            className={className}
-            style={{
-              ...buttonStyle,
-              ...style
-            }}
-        >
-            {children}
-        </button>
+          <button className={buttonClasses} onClick={onClick}>
+               {children}
+          </button>
   )
 }
+
+export default Button

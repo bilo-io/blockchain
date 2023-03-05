@@ -17,11 +17,9 @@ export const Loader: React.FC<LoaderProps> = ({
             </div>
           </div>
     )
+    case 'spinner':
     default: return (
-            <div className="lds-ripple">
-                <div />
-                <div />
-            </div>
+      <div className="spinner"></div>
     )
   }
 }

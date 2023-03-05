@@ -90,9 +90,9 @@ export const BlockDetails: React.FC = () => {
   return (
     <div className="flex-grow padded-page">
       <div>
-        <div className="flex-row">
+        <div className="flex-row center">
           <AssetIcon code={'BTC'} />
-          <h2>BTC / Block / {blockData?.data?.hash}</h2>
+          <h2>BTC / Block </h2>
         </div>
 
         {blockLoading
@@ -111,6 +111,7 @@ export const BlockDetails: React.FC = () => {
               </div>
             </>
             )}
+
         <h2>Transactions</h2>
         {transactionsLoading
           ? (<Loader type={'ripple'} />)
