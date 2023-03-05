@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { AssetIcon } from 'components/Core/AssetIcon/AssetIcon'
-import { Loader } from 'components/Loader/Loader'
+import { Loader } from 'components/Core/Loader/Loader'
 import { useLatestBlockHeight } from 'hooks/useLatestBlockHeight'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
