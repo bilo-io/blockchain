@@ -12,7 +12,7 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   color = 'primary',
   size = 'md',
