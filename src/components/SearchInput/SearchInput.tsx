@@ -1,5 +1,4 @@
 import { Button, Input } from 'components/Core'
-import { useAppTheme } from 'hooks/useAppTheme'
 import React from 'react'
 import translations from 'utils/translations'
 import './SearchInput.scss'
@@ -17,8 +16,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onClick,
   placeholder
 }) => {
-  const theme = useAppTheme()
-
   const commonMessages = translations.eng.common
 
   const handleChange = (e: any): void => {
@@ -34,7 +31,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         placeholder={placeholder}
         className="search-input"
       />
-      <Button size="large" color={theme.colors.SECONDARY} onClick={() => { onClick() }}>
+      <Button size="lg" color={'secondary'} onClick={() => { onClick() }}>
         {commonMessages.search}
       </Button>
     </div>

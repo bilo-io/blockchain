@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { AssetIcon } from 'components/Core/AssetIcon/AssetIcon'
-import { Loader } from 'components/Loader/Loader'
+import { Loader } from 'components/Core/Loader/Loader'
 import { useLatestBlockHeight } from 'hooks/useLatestBlockHeight'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
@@ -90,9 +90,9 @@ export const BlockDetails: React.FC = () => {
   return (
     <div className="flex-grow padded-page">
       <div>
-        <div className="flex-row">
+        <div className="flex-row center">
           <AssetIcon code={'BTC'} />
-          <h2>BTC / Block / {blockData?.data?.hash}</h2>
+          <h2>BTC / Block </h2>
         </div>
 
         {blockLoading
@@ -111,6 +111,7 @@ export const BlockDetails: React.FC = () => {
               </div>
             </>
             )}
+
         <h2>Transactions</h2>
         {transactionsLoading
           ? (<Loader type={'ripple'} />)

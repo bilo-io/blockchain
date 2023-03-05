@@ -2,6 +2,8 @@ import React from 'react'
 import iconBtc from '../../../assets/svg/crypto/btc.svg'
 import iconBch from '../../../assets/svg/crypto/bch.svg'
 import iconEth from '../../../assets/svg/crypto/eth.svg'
+
+import iconGeneric from '../../../assets/svg/crypto/generic-crypto-icon.svg'
 import { getAssetColor } from 'utils/assets'
 
 interface AssetIconProps {
@@ -46,7 +48,11 @@ export const AssetIcon: React.FC<AssetIconProps> = ({
           />
     )
     default: return (
-          <img src={''} alt={'asset icon'} />
+      <img src={iconGeneric} alt={'asset icon'} style={{
+        borderRadius: '100%',
+        padding: '0.3rem',
+        backgroundColor
+      }} />
     )
   }
 }
