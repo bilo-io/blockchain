@@ -1,7 +1,7 @@
 @import '../../styles/colors.scss';
 
 .search-input {
-    text-indent: 4rem;
+    text-indent: 3rem;
     font-size: 1.1rem;
     height: 3rem;
     line-height: 3rem;
@@ -11,20 +11,25 @@
     min-width: 50rem;
 
     &:hover {
-        // background-color: #f0f;
         border-color: #00adee;
     }
 
     &:focus {
         border-color: #00adee;
     }
+
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .search-button {
     padding: {
-        left: 3rem;
+        left: 7rem;
         right: 3rem;
         top: 1rem;
         bottom: 1rem;
     }
+
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }

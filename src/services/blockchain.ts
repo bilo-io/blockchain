@@ -6,6 +6,7 @@ import { GETRequest } from 'utils/api'
 
 const INFO_BASE_URL = 'https://blockchain.info'
 const API_BASE_URL = 'https://api.blockchain.com/v3/exchange'
+const API_BASE_URL_V3 = 'https://api.blockchain.info/v3'
 
 // https://blockhain.info/blocks/3600000?format=json
 export const getBlocks = async (timeInMilliSeconds: string): Promise<any> => {
@@ -27,9 +28,9 @@ export const getLatestBlock = async (): Promise<any> => {
 }
 
 // https://blockhain.info/rawtx/b6f6991d03df0e2e04dafffcd6bc418aac66049e2cd74b80f14ac86db1e3f0da
-// 000000000000000000021f73cb41abaf28bb1740888bd6bc18453d62a7dfe627
+// b6f6991d03df0e2e04dafffcd6bc418aac66049e2cd74b80f14ac86db1e3f0da
 export const getTransaction = async (transactionHash: string): Promise<any> => {
-  const url = `${INFO_BASE_URL}/rawtx/${transactionHash}&cors=true`
+  const url = `${API_BASE_URL_V3}/tx/${transactionHash}?format=json&cors=true`
   return await GETRequest(url)
 }
 

@@ -1,6 +1,7 @@
 import { Button, Input } from 'components/Core'
 import React from 'react'
 import translations from 'utils/translations'
+import iconSearch from 'assets/svg/icon_search.svg'
 import './SearchInput.scss'
 
 export interface SearchInputProps {
@@ -17,21 +18,27 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   placeholder
 }) => {
   const commonMessages = translations.eng.common
-
   const handleChange = (e: any): void => {
-    console.log('SearchInput.handleChange', e)
     onChange(e.target.value)
   }
 
   return (
-    <div className="flex-row justify-between">
+    <div className="relative flex-row justify-between">
+      <img className="absolute" style={{
+        left: '0.75rem',
+        top: '0.75rem',
+        width: '2rem'
+      }}
+        src={iconSearch}
+        alt="search"
+      />
       <Input
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
         className="search-input"
       />
-      <Button size="lg" color={'secondary'} onClick={() => { onClick() }}>
+      <Button size="md" color={'primary'} className="search-button" onClick={() => { onClick() }}>
         {commonMessages.search}
       </Button>
     </div>
@@ -40,7 +47,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 }
 
 SearchInput.defaultProps = {
-  placeholder: 'Search'
+  placeholder: 'Search...'
 }
 
 export default SearchInput

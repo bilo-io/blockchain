@@ -7,6 +7,7 @@ type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 interface ButtonProps {
   children: ReactNode
+  className?: string
   color?: Color
   size?: Size
   onClick?: () => void
@@ -14,11 +15,12 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({
   children,
+  className,
   color = 'primary',
   size = 'md',
   onClick
 }) => {
-  const buttonClasses = classNames('btn', `btn-${color}`, `btn-${size}`)
+  const buttonClasses = classNames('btn', `btn-${color}`, `btn-${size}`, className)
 
   return (
           <button className={buttonClasses} onClick={onClick}>

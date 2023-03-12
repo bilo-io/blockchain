@@ -57,7 +57,7 @@ export const Home: React.FC = () => {
           hash: (
             <div className='flex-row'>
               <a target="_blank" href={`${blockchainBaseUrl}/${assetCode?.blockchain as string}/block/${b.hash}`} rel="noreferrer">
-                {'blockchain.com'}&#129133;
+                {'blockchain.com ↗'}
               </a>
               <div style={{ width: '1rem' }} />
               <div className="link"
@@ -70,8 +70,6 @@ export const Home: React.FC = () => {
                     }
 
                   })
-                  // eslint-disable-next-line no-debugger
-                  // debugger
                 }}>
                 {collapseHashZeros(b.hash)}
               </div>
@@ -87,7 +85,45 @@ export const Home: React.FC = () => {
   }
 
   const handleSearch = (): void => {
-    alert(`search with "${searchQuery}"`)
+    navigate(`/${assetCode?.blockchair as string}/blocks/${searchQuery}`, {
+      state: {
+        assetCode: assetCode.blockchain,
+        latestBlockHeight,
+        block: searchQuery
+      }
+    })
+    // getBlock(searchQuery)
+    //   .then((res: {
+    //     data: IBlockchairBlock | IBlockchairBlock[]
+    //   }) => {
+    //     setData([])
+    //     const result = Array.isArray(data) ? data : [data]
+    //     setData(result.map((b: IBlockchairBlock) => ({
+    //       ...b,
+    //       hash: (
+    //         <div className='flex-row'>
+    //           <a target="_blank" href={`${blockchainBaseUrl}/${assetCode?.blockchain as string}/block/${b.hash}`} rel="noreferrer">
+    //             {'blockchain.com ↗'}
+    //           </a>
+    //           <div style={{ width: '1rem' }} />
+    //           <div className="link"
+    //             onClick={(): void => {
+    //               navigate(`/${assetCode?.blockchair as string}/blocks/${b.hash}`, {
+    //                 state: {
+    //                   assetCode: assetCode.blockchain,
+    //                   latestBlockHeight,
+    //                   block: b
+    //                 }
+    //               })
+    //             }}>
+    //             {collapseHashZeros(b.hash)}
+    //           </div>
+    //         </div>
+    //       )
+    //     })))
+    //   })
+    //   .catch((err: any) => { console.log({ err }) })
+    //   .finally(() => { setLoading(false) })
   }
   // #endregion
 
@@ -96,23 +132,17 @@ export const Home: React.FC = () => {
     // Start: prevent double API fetch
     if (initFetch.current) { return }
     initFetch.current = true
-    // end: prevent double API fetch
+    // End: prevent double API fetch
 
     getLatestBlock()
       .then((response: any) => {
         const blockHeight = response?.height
-        console.log('getLatestBlockHeight', blockHeight)
         setLatestBlockHeight(blockHeight ?? 777322)
         fetchBlocks(assetCode.blockchair)
       }).catch((error: any) => {
         console.log({ error })
       })
   }, [])
-
-  useEffect(() => {
-    console.log('fetching ' + (assetCode?.blockchair as string) + ' blocks')
-    // fetchBlocks()
-  }, [assetCode])
   // #endregion
 
   return (
