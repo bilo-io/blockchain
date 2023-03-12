@@ -6,8 +6,9 @@ const API_BASE_URL = 'https://api.blockchair.com'
 
 export type IBlockChainType = 'bitcoin' | 'ethereum'
 // https://api.blockchair.com/bitcoin/raw/block/0
-export const getBlock = async (height: string | undefined): Promise<any> => {
-  const url = `${API_BASE_URL}/bitcoin/raw/block/${height as string}`
+// https://api.blockchair.com/bitcoin/raw/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+export const getBlock = async (heightOrHash: string | undefined): Promise<any> => {
+  const url = `${API_BASE_URL}/bitcoin/raw/block/${heightOrHash as string}`
   return await GETRequest(url)
 }
 

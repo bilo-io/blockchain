@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { Button, Card } from 'components/Core'
 import { AssetIcon } from 'components/Core/AssetIcon/AssetIcon'
 import { Loader } from 'components/Core/Loader/Loader'
 import { useLatestBlockHeight } from 'hooks/useLatestBlockHeight'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+import { getTransaction } from 'services/blockchain'
 import {
   getBlock, getTransactions,
   type IBlockchairBlock
@@ -25,6 +27,7 @@ export const BlockDetails: React.FC = () => {
   const [blockLoading, setBlockLoading] = useState<boolean>(true)
   const [transactionsData, setTransactionsData] = useState<any>(null)
   const [transactionsLoading, setTransactionsLoading] = useState<boolean>(true)
+  const [showTransactionData, setShowTransactionData] = useState<boolean>(false)
   // #endregion
 
   // #region HELPERS
@@ -47,24 +50,42 @@ export const BlockDetails: React.FC = () => {
   }
 
   const fetchTransactions = (): void => {
-    // setTransactionsLoading(true)
+    setTransactionsLoading(true)
     if ((blockData?.data?.tx?.length > 0)) {
       const transactionHash = blockData?.data?.tx?.[0]
       console.log('Fetching Transactions', transactionHash)
 
+      // NOTE: this is from the blockchair API where the endpoint works fine
       getTransactions(transactionHash)
         .then((response: any) => {
-          console.log('response', response)
           setTransactionsLoading(false)
-          setTransactionsData(response)
+          const keys = Object.keys(response.data)
+          const transaction = response.data[keys?.[0]]
+          console.log('response', transaction?.decoded_raw_transaction)
+          setTransactionsData(transaction?.decoded_raw_transaction)
         }).catch((error: any) => {
           setTransactionsLoading(false)
           console.error('error', error)
         })
         .finally(() => { setTransactionsLoading(false) })
-    } else {
-      // setTransactionsLoading(false)
+
+      // NOTE: this is from blockchain API, bu the endpoint doesn't seem to work
+      getTransaction(transactionHash)
+        .then((response: any) => {
+          setTransactionsLoading(false)
+          const keys = Object.keys(response.data)
+          const transaction = response.data
+          console.log('blockchain response', transaction)
+        }).catch((error: any) => {
+          setTransactionsLoading(false)
+          console.error('error', error)
+        })
+        .finally(() => { setTransactionsLoading(false) })
     }
+  }
+
+  const toggleTransactionData = (): void => {
+    setShowTransactionData((prevState: boolean) => !prevState)
   }
   // #endregion
 
@@ -90,7 +111,7 @@ export const BlockDetails: React.FC = () => {
   return (
     <div className="flex-grow padded-page">
       <div>
-        <div className="flex-row center">
+        <div className="flex-row center items-center">
           <AssetIcon code={'BTC'} />
           <h2>BTC / Block </h2>
         </div>
@@ -116,7 +137,29 @@ export const BlockDetails: React.FC = () => {
         {transactionsLoading
           ? (<Loader type={'ripple'} />)
           : (<div>
-            <pre><code>{JSON.stringify(transactionsData, null, 2)}</code></pre>
+            <Card>
+              <div>{transactionsData?.hash}</div>
+              <div>{Object
+                .keys(transactionsData?.vin?.[0])
+                .filter((key: string) => !['sequence', 'txid', 'version', 'txinwitness']
+                  .includes(key))
+              }</div>
+              {transactionsData?.vin.map((entry: any) => (
+                <div key={entry.sequence}>
+                  {entry.coinbase}
+                </div>
+              ))}
+
+              <Button color="secondary" size="sm" onClick={() => { toggleTransactionData() }} >
+                {showTransactionData ? 'Hide data' : 'Show data'}
+              </Button>
+            </Card>
+            {showTransactionData && (
+              <pre>
+              <code>{JSON.stringify(transactionsData, null, 2)}</code>
+            </pre>
+            )
+            }
           </div>)}
       </div>
     </div>

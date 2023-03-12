@@ -7,7 +7,10 @@ export default {
   title: 'Components/Core/Progress',
   component: Progress,
   argTypes: {
-    backgroundColor: { control: 'color' }
+    backgroundColor: { control: 'color' },
+    size: { control: 'number' },
+    ratio: { control: 'number' },
+    type: { control: { type: 'select', options: ['linear', 'circular'] } }
   }
 } as ComponentMeta<typeof Progress>
 
@@ -19,6 +22,11 @@ export const DefaultStory = (): React.ReactElement => {
       <Progress type='linear' ratio={50} size={100} />
     </div>
   )
+}
+
+DefaultStory.args = {
+  color: 'primary',
+  children: 'Button (Primary)'
 }
 
 export const Circular = (): React.ReactElement => {
