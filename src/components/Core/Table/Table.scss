@@ -1,0 +1,19 @@
+table {
+    border-spacing: 0.5rem;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    padding: 1rem;
+    text-align: left;
+}
+
+th {
+    color: #888;
+}
+
+tr {
+    border-bottom: 1px solid #888;
+}

@@ -1,24 +1,32 @@
+import { useAppTheme } from 'hooks/useAppTheme'
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-// import routes, { type IRoute } from './pages/routes'
-import './App.css'
-import Explore from './pages/Explore/Explore'
+import './App.scss'
 import { Home } from './pages/Home/Home'
+import BlockDetails from 'pages/BlockDetails/BlockDetails'
+
+import { Context } from 'store/context'
 
 const App = (): React.ReactElement => {
+  const theme = useAppTheme()
+
   return (
-    <div className="App">
-      <Router>
-        <Routes>
-          {/* {routes.map((route: IRoute) => (
-              <Route key={route.path} path={route.path} element={route.component} />
-            ))
-          } */}
-          <Route path={'/'} element={<Home />} />
-          <Route path={'/explore'} element={<Explore />} />
-        </Routes>
-      </Router>
-    </div>
+    <Context.Provider value={{ theme }}>
+      <div className="App">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          height: '100vh'
+        }}>
+          <Router>
+            <Routes>
+              <Route path={'/'} element={<Home />} />
+              <Route path={'/:blockChain/blocks/:blockHash'} element={<BlockDetails />} />
+            </Routes>
+          </Router>
+        </div>
+      </div>
+    </Context.Provider>
   )
 }
 

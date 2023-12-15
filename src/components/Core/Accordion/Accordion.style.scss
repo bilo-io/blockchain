@@ -1,0 +1,29 @@
+.accordion-container {
+    position: relative;
+}
+
+.accordion-header {
+    width: 100%;
+    height: 2rem;
+    padding: 0.5rem;
+    background-color: #99999922;
+    cursor: pointer;
+}
+
+.accordion-children {
+    height: auto;
+    max-height: 0;
+    opacity: 1;
+    overflow: hidden;
+
+    transition: all .5s ease-in-out;
+}
+
+.accordion-children-open {
+    height: auto;
+    max-height: 30rem;
+    opacity: 1;
+    overflow: auto;
+
+    transition: all .5s ease-in-out;
+}
